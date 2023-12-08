@@ -1,5 +1,6 @@
 package com.sbaldass.booksstore.controllers;
 
+import com.sbaldass.booksstore.dtos.BookDTO;
 import com.sbaldass.booksstore.models.Book;
 import com.sbaldass.booksstore.services.BookService;
 import org.springframework.web.bind.annotation.*;
@@ -17,32 +18,36 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> findAll(){
+    public List<BookDTO> findAll() throws Exception {
         return bookService.findAll();
     }
 
     @PostMapping
-    public Book save(@RequestBody Book book){
+    public BookDTO save(@RequestBody BookDTO book) throws Exception {
         return bookService.saveBook(book);
     }
 
     @GetMapping("/{id}")
-    public Optional<Book> findOne(@PathVariable Long id){
+    public Optional<BookDTO> findOne(@PathVariable Long id) throws Exception {
         return bookService.findById(id);
     }
 
     @PutMapping("/{id}")
-    public Optional<Book> update(@RequestBody Book newBook, @PathVariable Long id){
+    public Optional<BookDTO> update(@RequestBody Book newBook, @PathVariable Long id) throws Exception {
         return bookService.findById(id).map(book -> {
             book.setTitle(newBook.getTitle());
             book.setAuthor(newBook.getAuthor());
             book.setYearPublished(newBook.getYearPublished());
-            return bookService.saveBook(book);
+            try {
+                return bookService.saveBook(book);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable Long id){
+    public void deleteBook(@PathVariable Long id) throws Exception {
         bookService.delete(id);
     }
 }

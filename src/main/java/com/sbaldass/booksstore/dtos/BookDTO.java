@@ -1,6 +1,4 @@
-package com.sbaldass.booksstore.models;
-
-import javax.persistence.*;
+package com.sbaldass.booksstore.dtos;
 
 import lombok.*;
 
@@ -8,10 +6,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class BookDTO {
     private Long id;
 
     private String title;
