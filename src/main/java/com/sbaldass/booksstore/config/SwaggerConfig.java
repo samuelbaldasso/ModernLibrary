@@ -42,9 +42,9 @@ public class SwaggerConfig {
 
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Swagger com Spring Boot + Security - Restaurantes")
+                .title("Swagger com Spring Boot + Security - Bibliotecas")
                 .version("1.0.0")
-                .description("Backend Spring Boot + Security para restaurantes")
+                .description("Backend Spring Boot + Security para bibliotecas")
                 .build();
     }
 
