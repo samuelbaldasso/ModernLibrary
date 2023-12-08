@@ -26,12 +26,12 @@ A documentação completa das APIs está disponível no endpoint `/swagger-ui/`.
 
 3. Inicie o servidor: execute a aplicação pela classe main da mesma na sua IDE preferida (recomendo Intellij IDEA Community ou Ultimate).
 
-4. Acesse `http://localhost:8080/swagger-ui/` em seu navegador para visualizar a documentação da API.
+4. Acesse `https://books-api-production.up.railway.app/swagger-ui/` em seu navegador para visualizar a documentação da API.
 
 ---
 
 Desenvolvido com ❤️ por Samuel Baldasso
 
-PS: Se preferir, o projeto estará também em ambiente de produção no link abaixo:
+PS: O projeto estará em ambiente de produção no link abaixo:
 
 https://books-api-production.up.railway.app/
