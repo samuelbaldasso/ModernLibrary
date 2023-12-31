@@ -1,5 +1,6 @@
 package com.sbaldass.booksstore.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,5 +23,6 @@ public class User {
     private String email;
     private String password;
     @ManyToMany
+    @JsonManagedReference
     private List<Role> roles = new ArrayList<>();
 }

@@ -30,7 +30,7 @@ public class ReservationService {
         Book book = bookRepository.findById(reservationDTO.getBookId())
                 .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
 
-        if (!book.isAvailable() && !isBookAlreadyReserved(reservationDTO.getBookId())) {
+        if (!book.isAvailable() || !isBookAlreadyReserved(reservationDTO.getBookId())) {
             Reservation reservation = convertToEntity(reservationDTO);
 
             reservation.setReservationDate(LocalDate.now());

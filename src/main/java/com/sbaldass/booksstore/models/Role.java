@@ -1,5 +1,6 @@
 package com.sbaldass.booksstore.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,6 @@ public class Role
     private String name;
 
     @ManyToMany(mappedBy="roles")
+    @JsonBackReference
     private List<User> users;
 }

@@ -38,6 +38,7 @@ public class BookController {
             book.setTitle(newBook.getTitle());
             book.setAuthor(newBook.getAuthor());
             book.setYearPublished(newBook.getYearPublished());
+            book.setAvailable(newBook.isAvailable());
             try {
                 return bookService.saveBook(book);
             } catch (Exception e) {

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class LoanService {
@@ -49,7 +50,7 @@ public class LoanService {
         }
     }
     @Transactional
-    public LoanDTO returnBook(Long loanId) throws Exception{
+    public LoanDTO returnBook(Long loanId) throws Exception {
         Loan loan = loanRepository.findById(loanId)
                 .orElseThrow(() -> new RuntimeException("Empréstimo não encontrado"));
 
@@ -61,10 +62,20 @@ public class LoanService {
         bookRepository.save(book);
 
         LoanHistory history = new LoanHistory();
+        history.setLoanId(loan.getId());
+        history.setBookId(book.getId());
+        history.setUserId(loan.getUser().getId());
+        history.setStartDate(loan.getStartDate());
+        history.setEndDate(LocalDate.now());
+        history.setStatus(loan.getStatus());
         loanHistoryRepository.save(history);
 
         Loan updatedLoan = loanRepository.save(loan);
         return convertToDTO(updatedLoan);
+    }
+
+    public List<LoanDTO> getAllLoans(){
+        return loanRepository.findAll().stream().map(this::convertToDTO).toList();
     }
 
     private Loan convertToEntity(LoanDTO loanDTO) {
