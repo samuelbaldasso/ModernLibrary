@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .authorizeRequests((authorize) ->
                         authorize
                                 .antMatchers("/users/**").permitAll()
-                                .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                                .antMatchers("/auth/**").permitAll()
                                 .antMatchers( "/v3/api-docs/**",
                                         "/swagger-ui/**",
                                         "/v2/api-docs/**",
