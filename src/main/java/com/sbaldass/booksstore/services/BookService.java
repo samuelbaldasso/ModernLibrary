@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,15 +26,24 @@ public class BookService {
 
     public BookDTO saveBook(BookDTO bookDTO) throws Exception{
         Book book = convertToEntity(bookDTO);
+        if(book.getId() == null) {
+            throw new Exception("Não é possível salvar um livro com um ID.");
+        }
         return convertToDTO(bookRepository.save(book));
     }
 
     public Optional<BookDTO> findById(Long id) throws Exception{
+      if(id == null) {
+        throw new Exception("Não é possível salvar um livro com um ID.");
+    }
         return bookRepository.findById(id)
                 .map(this::convertToDTO);
     }
 
     public void delete(Long id) throws Exception{
+      if(id == null) {
+        throw new Exception("Não é possível salvar um livro com um ID.");
+    }
         bookRepository.deleteById(id);
     }
 

@@ -34,17 +34,17 @@ public class BookController {
 
     @PutMapping("/{id}")
     public Optional<BookDTO> update(@RequestBody Book newBook, @PathVariable Long id) throws Exception {
-        return bookService.findById(id).map(book -> {
-            book.setTitle(newBook.getTitle());
-            book.setAuthor(newBook.getAuthor());
-            book.setYearPublished(newBook.getYearPublished());
-            book.setAvailable(newBook.isAvailable());
-            try {
-                return bookService.saveBook(book);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+      return bookService.findById(id).map(book -> {
+        book.setTitle(newBook.getTitle());
+        book.setAuthor(newBook.getAuthor());
+        book.setYearPublished(newBook.getYearPublished());
+        book.setAvailable(newBook.isAvailable());
+        try {
+          return bookService.saveBook(book);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
     }
 
     @DeleteMapping("/{id}")
