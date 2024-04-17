@@ -2,6 +2,11 @@ package com.sbaldass.booksstore.config;
 
 import com.sbaldass.booksstore.models.User;
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.naming.AuthenticationException;
@@ -10,16 +15,19 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 @Component
+@PropertySource(value = {"classpath:application.properties"})
 public class JwtUtils {
-    private final String secret_key = "$2a$12$lJKl82/VpPlvf08mlfjDmeuzKxMNbmldmoL7gEnK5vQc05cWpUu9e";
-
+    @Autowired
+    private Environment environment;
     private final JwtParser jwtParser;
 
     private final String TOKEN_HEADER = "Authorization";
     private final String TOKEN_PREFIX = "Bearer ";
 
-    public JwtUtils() {
-        this.jwtParser = Jwts.parser().setSigningKey(secret_key);
+    @Autowired
+    public JwtUtils(Environment environment) {
+        this.environment = environment;
+        this.jwtParser = Jwts.parser().setSigningKey(environment.getProperty("api.secret"));
     }
 
     public String createToken(User user) {
@@ -31,7 +39,7 @@ public class JwtUtils {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(tokenValidity)
-                .signWith(SignatureAlgorithm.HS256, secret_key)
+                .signWith(SignatureAlgorithm.HS256, environment.getProperty("api.secret"))
                 .compact();
     }
 
