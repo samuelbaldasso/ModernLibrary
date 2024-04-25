@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +36,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-
     public User alterUser(UserDTO userDto, Long id) {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -43,12 +43,16 @@ public class UserService {
         existingUser.setUsername(userDto.getUsername());
         existingUser.setEmail(userDto.getEmail());
         existingUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+        Role userRole = roleRepository.findByName(userDto.isAdmin() ? "ROLE_ADMIN" : "ROLE_USER")
+                .orElseThrow(() -> new RuntimeException("Role not found."));
+        existingUser.setRoles(Collections.singletonList(userRole));
         return userRepository.save(existingUser);
     }
 
 
-    public User findUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+    public Optional<User> findUserById(Long id) {
+        return userRepository.findById(id);
     }
 
     public List<UserDTO> findAllUsers() throws Exception{
@@ -60,15 +64,6 @@ public class UserService {
 
     private UserDTO convertToDTO(User usuario){
         UserDTO usuarioDTO = new UserDTO();
-        usuarioDTO.setId(usuario.getId());
-        usuarioDTO.setUsername(usuario.getUsername());
-        usuarioDTO.setEmail(usuario.getEmail());
-        usuarioDTO.setPassword(usuario.getPassword());
-        return usuarioDTO;
-    }
-
-    private User convertToEntity(User usuario){
-        User usuarioDTO = new User();
         usuarioDTO.setId(usuario.getId());
         usuarioDTO.setUsername(usuario.getUsername());
         usuarioDTO.setEmail(usuario.getEmail());

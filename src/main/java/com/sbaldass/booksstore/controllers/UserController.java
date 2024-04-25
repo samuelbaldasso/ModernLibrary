@@ -4,6 +4,7 @@ import com.sbaldass.booksstore.models.User;
 import com.sbaldass.booksstore.dtos.UserDTO;
 import com.sbaldass.booksstore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class UserController {
   }
 
   @GetMapping("/{id}")
-  public User getById(@PathVariable Long id) throws Exception {
-    return userService.findUserById(id);
+  public ResponseEntity<User> getById(@PathVariable Long id) throws Exception {
+    return userService.findUserById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @PostMapping
