@@ -28,7 +28,7 @@ A documentação completa das APIs está disponível no endpoint `/swagger-ui/`.
    - Baixe o PostgreSQL 14 do site oficial: [Download PostgreSQL](https://www.postgresql.org/download/).
    - Siga as instruções de instalação para o seu sistema operacional.
    - Durante a instalação, defina `postgres` como o nome de usuário e `admin` como a senha para o superusuário do PostgreSQL.
-   - Crie um novo banco de dados chamado `books-api`.
+   - Crie um novo banco de dados chamado `books`.
 
 4. Inicie o servidor: execute a aplicação pela classe main da mesma na sua IDE preferida (recomendo Intellij IDEA Community ou Ultimate).
 
