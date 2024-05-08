@@ -16,7 +16,7 @@ Este projeto é um backend para um sistema de bibliotecas. Ele oferece funcional
 
 ## Documentação da API
 
-A documentação completa das APIs está disponível no endpoint `/swagger-ui/`. A documentação é interativa e permite testar os endpoints diretamente pela interface do Swagger.
+A documentação completa das APIs está disponível no endpoint `/swagger-ui/index.html`. A documentação é interativa e permite testar os endpoints diretamente pela interface do Swagger.
 
 ## Instruções de Instalação e Uso
 
@@ -32,7 +32,7 @@ A documentação completa das APIs está disponível no endpoint `/swagger-ui/`.
 
 4. Inicie o servidor: execute a aplicação pela classe main da mesma na sua IDE preferida (recomendo Intellij IDEA Community ou Ultimate).
 
-5. Acesse `http://localhost:8080/swagger-ui/` em seu navegador para visualizar a documentação da API.
+5. Acesse `http://localhost:8080/swagger-ui/index.html` em seu navegador para visualizar a documentação da API.
 
 ---
 
