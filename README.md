@@ -7,12 +7,14 @@ Este projeto é um backend para um sistema de bibliotecas. Ele oferece funcional
 - **Autenticação de Usuário**: Sistema de login e registro de usuários.
 - **Autorização via JWT**: Após o login, os usuários recebem um token JWT para acessos subsequentes.
 - **Gerenciamento de Biblioteca**: Funcionalidades para adicionar, visualizar, editar e deletar itens de livros, gerenciar empréstimos e controlar reservas de livros.
+- **Testes unitários**: Testes unitários de todos os controllers, repositories e serviços da aplicação voltados para o usuário.
 
 ## Tecnologias Utilizadas
 
 - **Java / Spring Boot**: Ambiente de execução do servidor.
 - **PostgreSQL**: Banco de dados eficiente para armazenar os dados dos usuários e informações da biblioteca.
 - **JWT (JSON Web Tokens)**: Utilizado para a autenticação e autorização de usuários com base em roles.
+- **JUnit4 / Mockito**: Utilizados para os testes unitários dos usuários.
 
 ## Documentação da API
 
