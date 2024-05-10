@@ -1,45 +1,43 @@
 package com.sbaldass.booksstore.controllers;
 
 import com.sbaldass.booksstore.models.User;
+import com.sbaldass.booksstore.dtos.UserDTO;
 import com.sbaldass.booksstore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/users")
 @RestController
+@RequestMapping("/users")
 public class UserController {
-    private UserService userService;
+  @Autowired
+  public UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+  @GetMapping
+  public List<UserDTO> getAll() throws Exception {
+    return userService.findAllUsers();
+  }
 
-    @GetMapping("/me")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<User> authenticatedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+  @GetMapping("/{id}")
+  public ResponseEntity<User> getById(@PathVariable Long id) throws Exception {
+    return userService.findUserById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+  }
 
-        User currentUser = (User) authentication.getPrincipal();
+  @PostMapping
+  public User create(@RequestBody UserDTO userDTO) throws Exception {
+      return userService.saveUser(userDTO);
+  }
 
-        return ResponseEntity.ok(currentUser);
-    }
+  @PutMapping("/{id}")
+  public User putUser(@PathVariable Long id, @RequestBody UserDTO userDTO) throws Exception {
+    return userService.alterUser(userDTO, id);
+  }
 
-    @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<User>> allUsers() {
-        List <User> users = userService.allUsers();
-
-        return ResponseEntity.ok(users);
-    }
+  @DeleteMapping("/{id}")
+  public void delete(@PathVariable Long id) throws Exception {
+    userService.deleteUser(id);
+  }
 
 }

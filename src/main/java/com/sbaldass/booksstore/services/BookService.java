@@ -2,80 +2,65 @@ package com.sbaldass.booksstore.services;
 
 import com.sbaldass.booksstore.dtos.BookDTO;
 import com.sbaldass.booksstore.models.Book;
-import com.sbaldass.booksstore.models.User;
 import com.sbaldass.booksstore.repositories.BookRepository;
-import com.sbaldass.booksstore.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
 
-    @Autowired
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
-    public Book findById(Long id) {
-        return bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Livro não encontrado."));
+    public List<BookDTO> findAll() throws Exception{
+        return bookRepository.findAll().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
-    public Book save(BookDTO book) {
-        Book book1 = new Book();
-        book1.setBorrowed(book.isBorrowed());
-        book1.setAuthor(book.getAuthor());
-        book1.setTitle(book.getTitle());
-        book1.setYearLaunched(book.getYearLaunched());
-
-        return bookRepository.save(book1);
+    public BookDTO saveBook(BookDTO bookDTO) throws Exception{
+        Book book = convertToEntity(bookDTO);
+        if(book.getId() == null) {
+            throw new Exception("Não é possível salvar um livro com um ID.");
+        }
+        return convertToDTO(bookRepository.save(book));
     }
 
-    public Book update(BookDTO book, Long id) {
-        Book book1 = findById(id);
-        book1.setBorrowed(book.isBorrowed());
-        book1.setAuthor(book.getAuthor());
-        book1.setTitle(book.getTitle());
-        book1.setYearLaunched(book.getYearLaunched());
-
-        return bookRepository.save(book1);
+    public Optional<BookDTO> findById(Long id) throws Exception{
+      if(id == null) {
+        throw new Exception("Não é possível salvar um livro com um ID.");
+    }
+        return bookRepository.findById(id)
+                .map(this::convertToDTO);
     }
 
-    public void deleteById(Long id) {
+    public void delete(Long id) throws Exception{
+      if(id == null) {
+        throw new Exception("Não é possível salvar um livro com um ID.");
+    }
         bookRepository.deleteById(id);
     }
 
-    public void delete() {
-        bookRepository.deleteAll();
+    private BookDTO convertToDTO(Book book) {
+        try {
+            return new BookDTO(book.getId(), book.getTitle(), book.getAuthor(), book.getYearPublished(), book.isAvailable());
+        } catch (Exception e) {
+            throw new RuntimeException("Conversão mal sucedida.");
+        }
     }
 
-    public Book borrowBook(Long bookId, Long userId) {
-        Book book = findById(bookId);
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
-        if (book != null && !book.isBorrowed() && user != null) {
-            book.setBorrowedBy(user);
-            book.setBorrowed(true);
-            book.setBorrowedAt(LocalDate.now());
-            return bookRepository.save(book);
+    private Book convertToEntity(BookDTO bookDTO) {
+        try {
+            return new Book(bookDTO.getId(), bookDTO.getTitle(), bookDTO.getAuthor(), bookDTO.getYearPublished(), bookDTO.isAvailable());
+        } catch (Exception e) {
+            throw new RuntimeException("Conversão mal sucedida.");
         }
-        return null;
-    }
-
-    public Book returnBook(Long bookId) {
-        Book book = findById(bookId);
-        if (book != null && book.isBorrowed()) {
-            book.setBorrowedBy(null);
-            book.setBorrowed(false);
-            book.setReturnedAt(LocalDate.now());
-            return bookRepository.save(book);
-        }
-        return null;
     }
 }
+

@@ -1,29 +1,34 @@
 package com.sbaldass.booksstore.models;
 
-import jakarta.persistence.*;
-import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
+import javax.persistence.*;
+import java.util.List;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "roles")
-@Data
-public class Role{
+@Table(name="roles")
+public class Role
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private RoleName name;
 
-    @Column(nullable = false)
-    private String description;
+    @Column(nullable=false, unique=true)
+    private String name;
 
-    @CreationTimestamp
-    @Column(updatable = false, name = "created_at")
-    private Date createdAt;
+    @ManyToMany(mappedBy="roles")
+    @JsonBackReference
+    private List<User> users;
 
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private Date updatedAt;
+    public Role(String roleUser) {
+        this.name = roleUser;
+    }
 }
