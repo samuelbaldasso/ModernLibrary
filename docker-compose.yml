@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build: . # Tells Docker Compose to build the image from the Dockerfile in the current directory
+    container_name: modern-library-app
+    ports:
+      - "8080:8080" # Maps port 8080 of the host to port 8080 of the container
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/books
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - API_SECRET=${API_SECRET} # You can set this in a .env file or directly here
+    networks:
+      - modern-library-network
+
+  db:
+    image: postgres:14 # Uses the official PostgreSQL 14 image
+    container_name: modern-library-db
+    ports:
+      - "5433:5432" # Maps port 5433 of the host to port 5432 of the container (to avoid conflict if you have local postgres on 5432)
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=books
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persists database data
+    networks:
+      - modern-library-network
+
+volumes:
+  postgres_data: # Defines a named volume for data persistence
+
+networks:
+  modern-library-network:
+    driver: bridge
