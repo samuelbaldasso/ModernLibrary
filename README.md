@@ -1,41 +1,41 @@
-# Backend para Bibliotecas com Autenticação JWT e Autorização por Roles - Java / Spring Boot
+# Backend for Libraries with JWT Authentication and Role Authorization - Java / Spring Boot
 
-Este projeto é um backend para um sistema de bibliotecas. Ele oferece funcionalidades como autenticação e autorização de usuários, utilizando tokens JWT (JSON Web Tokens) e um sistema de roles. O backend é construído em Java / Spring Boot com o banco de dados PostgreSQL.
+This project is a backend for a library system. It offers features such as user authentication and authorization using JWT tokens (JSON Web Tokens) and a role system. The backend is built in Java / Spring Boot with the PostgreSQL database.
 
-## Exemplos de Recursos
+## Feature Examples
 
-- **Autenticação de Usuário**: Sistema de login e registro de usuários.
-- **Autorização via JWT**: Após o login, os usuários recebem um token JWT para acessos subsequentes.
-- **Gerenciamento de Biblioteca**: Funcionalidades para adicionar, visualizar, editar e deletar itens de livros, gerenciar empréstimos e controlar reservas de livros.
-- **Testes unitários**: Testes unitários de todos os controllers, repositories e serviços da aplicação voltados para o usuário.
+- User authentication: Login and user registration system.
+- **Authorization via JWT**: After logging in, users receive a JWT token for subsequent access.
+- Library Management**: Functionalities for adding, viewing, editing and deleting book items, managing loans and controlling book reservations.
+- Unit tests**: Unit tests of all the controllers, repositories and user-facing services in the application.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
-- **Java / Spring Boot**: Ambiente de execução do servidor.
-- **PostgreSQL**: Banco de dados eficiente para armazenar os dados dos usuários e informações da biblioteca.
-- **JWT (JSON Web Tokens)**: Utilizado para a autenticação e autorização de usuários com base em roles.
-- **JUnit4 / Mockito**: Utilizados para os testes unitários dos usuários.
+- Java / Spring Boot: Server execution environment.
+- PostgreSQL**: Efficient database for storing user data and library information.
+- **JWT (JSON Web Tokens)**: Used for authenticating and authorizing users based on roles.
+- **JUnit4 / Mockito**: Used for the unit testing of users.
 
-## Documentação da API
+## API documentation
 
-A documentação completa das APIs está disponível no endpoint `/swagger-ui/index.html`. A documentação é interativa e permite testar os endpoints diretamente pela interface do Swagger.
+The full API documentation is available on the `/swagger-ui/index.html` endpoint. The documentation is interactive and allows you to test the endpoints directly via the Swagger interface.
 
-## Instruções de Instalação e Uso
+## Installation and Use Instructions
 
-1. Clone o repositório: `git clone [URL_DO_REPOSITORIO]`
+1. Clone the repository: `git clone [REPOSITORY_URL]`
 
-2. Navegue até a pasta do projeto e instale as dependências: `cd [NOME_DA_PASTA_DO_PROJETO]` e depois execute `mvn install` para gerar a atualização das dependências e o JAR da aplicação (caso desejar).
+2. Navigate to the project folder and install the dependencies: `cd [PROJECT_FOLDER_NAME]` and then run `mvn install` to generate the dependency update and the application JAR (if desired).
 
-3. **Instalação do PostgreSQL 14** (Opcional):
-   - Baixe o PostgreSQL 14 do site oficial: [Download PostgreSQL](https://www.postgresql.org/download/).
-   - Siga as instruções de instalação para o seu sistema operacional.
-   - Durante a instalação, defina `postgres` como o nome de usuário e `admin` como a senha para o superusuário do PostgreSQL.
-   - Crie um novo banco de dados chamado `books`.
+3. **Install PostgreSQL 14** (Optional):
+   - Download PostgreSQL 14 from the official website: [Download PostgreSQL](https://www.postgresql.org/download/).
+   - Follow the installation instructions for your operating system.
+   - During installation, set `postgres` as the username and `admin` as the password for the PostgreSQL superuser.
+   - Create a new database called `books`.
 
-4. Inicie o servidor: execute a aplicação pela classe main da mesma na sua IDE preferida (recomendo Intellij IDEA Community ou Ultimate).
+4. Start the server: run the application from its main class in your preferred IDE (I recommend Intellij IDEA Community or Ultimate).
 
-5. Acesse `http://localhost:8080/swagger-ui/index.html` em seu navegador para visualizar a documentação da API.
+5. Go to `http://localhost:8080/swagger-ui/index.html` in your browser to view the API documentation.
 
 ---
 
-Desenvolvido com ❤️ por Samuel Baldasso
+Developed with ❤️ by Samuel Baldasso
