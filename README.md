@@ -4,15 +4,15 @@ This project is a backend for a library system. It offers features such as user 
 
 ## Feature Examples
 
-- User authentication: Login and user registration system.
+- **User authentication**: Login and user registration system.
 - **Authorization via JWT**: After logging in, users receive a JWT token for subsequent access.
-- Library Management**: Functionalities for adding, viewing, editing and deleting book items, managing loans and controlling book reservations.
-- Unit tests**: Unit tests of all the controllers, repositories and user-facing services in the application.
+- **Library Management**: Functionalities for adding, viewing, editing and deleting book items, managing loans and controlling book reservations.
+- **Unit tests**: Unit tests of all the controllers, repositories and user-facing services in the application.
 
 ## Technologies Used
 
-- Java / Spring Boot: Server execution environment.
-- PostgreSQL**: Efficient database for storing user data and library information.
+- **Java / Spring Boot**: Server execution environment.
+- **PostgreSQL**: Efficient database for storing user data and library information.
 - **JWT (JSON Web Tokens)**: Used for authenticating and authorizing users based on roles.
 - **JUnit4 / Mockito**: Used for the unit testing of users.
 
